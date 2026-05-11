@@ -15,19 +15,21 @@
 
 TESTDIR="$(cd -P "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
+pip install setuptools==58.2.0
+
 cd $TESTDIR/..
 rm -rf $TESTDIR/tvirtenv $TESTDIR/../dist $TESTDIR/../build $TESTDIR/../openconfig_pyang.egg-info
 
 echo "packaging..."
 (cd $TESTDIR/..
-python setup.py bdist_wheel sdist >/dev/null
+python3 setup.py bdist_wheel sdist >/dev/null
 if [ $? -ne 0 ]; then
   echo "Cannot run tests, packaging broken."
   exit 127
 fi)
 
 echo "creating virtualenv..."
-virtualenv $TESTDIR/tvirtenv >/dev/null
+python3 -m virtualenv $TESTDIR/tvirtenv >/dev/null
 source $TESTDIR/tvirtenv/bin/activate
 
 echo "installing package..."

@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: [ '2.7', '3.7', '3.8', '3.9', '3.x' ]
+        python-version: [ '3.9', '3.10', '3.11' ]
       fail-fast: false
     name: Python ${{ matrix.python-version }} Packaging Test
 
@@ -29,6 +29,7 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         python -m pip install wheel virtualenv pyang
+        sudo apt-get update
         sudo apt-get install libxml2-dev libxslt1-dev
 
     - name: Run test
